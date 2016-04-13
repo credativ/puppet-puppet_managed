@@ -1,0 +1,15 @@
+{
+  "name": "aptituz-puppet_managed",
+  "version": "0.1.0",
+  "author": "aptituz",
+  "summary": "parser function to ease puppet managed headers",
+  "license": "MIT",
+  "source": "",
+  "project_page": null,
+  "issues_url": null,
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
