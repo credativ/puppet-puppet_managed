@@ -1,15 +1,11 @@
 {
   "name": "aptituz-puppet_managed",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "aptituz",
-  "summary": "parser function to ease puppet managed headers",
+  "summary": "parser function to ease adding puppet managed headers",
   "license": "MIT",
-  "source": "",
-  "project_page": null,
-  "issues_url": null,
-  "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
-  ],
-  "data_provider": null
+  "source": "https://github.com/credativ/puppet-puppet_managed",
+  "project_page": "https://github.com/credativ/puppet-puppet_managed",
+  "issues_url": "https://github.com/credativ/puppet-puppet_managed/issues",
 }
 
