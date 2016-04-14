@@ -54,7 +54,14 @@ module Puppet::Parser::Functions
 
 
     if opts['verbose']
+      if opts['filename'].nil?
+        raise ArgumentError, "puppet_managed: verbose requires the filename option to be set"
+      end
+
+      # add empty line add start
       managed_text.unshift('')
+
+      # the rest is *after* the "managed by puppet" first line
       managed_text.push('')
       managed_text.push("Class: #{lookupvar('name')}")
       managed_text.push("Path: #{opts['filename']}")

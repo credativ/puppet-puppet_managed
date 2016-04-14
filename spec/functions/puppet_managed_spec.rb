@@ -8,7 +8,6 @@ describe 'puppet_managed' do
     }
   end
 
-
   context 'with comment_style => c-block' do
     it {
       is_expected.to run.with_params({ 'comment_style' => 'c-block'})
@@ -39,6 +38,13 @@ describe 'puppet_managed' do
     it {
       is_expected.to run.with_params({ 'prefix' => '!!'})
         .and_return("!! MANAGED BY PUPPET\n")
+    }
+  end
+
+  context 'with verbose but no filename' do
+    it {
+      is_expected.to run.with_params({ 'verbose' => true })
+        .and_raise_error(ArgumentError)
     }
   end
 end
