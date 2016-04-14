@@ -37,7 +37,9 @@ To add a basic header "# MANAGED BY PUPPET" add the following to your <template:
 
 Not that helpful, yet, is it? Let's make it more verbose:
 
+```puppet
 <%= scope.function_puppet_managed([ {'filename' => __FILE__, verbose' => true }]) %>
+```
 
 This creates a multi-line comment, adding the following informations:
 
