@@ -2,82 +2,81 @@
 
 #### Table of Contents
 
-1. [Description](#description)
+1. [Overview](#overview)
+1. [Module description](#module-description)
 1. [Setup - The basics of getting started with puppet_managed](#setup)
     * [What puppet_managed affects](#what-puppet_managed-affects)
-    * [Setup requirements](#setup-requirements)
     * [Beginning with puppet_managed](#beginning-with-puppet_managed)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
 
-## Description
+## Overview
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
+Adds a new custom parser function that makes adding a managed by puppet header less repetitive.
 
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
+## Module description
+
+This modules provides a single custom parser function, called
+puppet_managed. It can be called from templates to automatically generate a comment header telling the user that this file is managed by puppet.
+
 
 ## Setup
 
-### What puppet_managed affects **OPTIONAL**
+Since puppet_managed is a custom parser function it requires
+pluginsync and is available once installed.
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
+### Usage
 
-If there's more that they should know about, though, this is the place to mention:
+To add a basic header "# MANAGED BY PUPPET" add the following to your <template:
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
+```puppet
+<%= scope.function_puppet_managed([]) %>
+```
 
-### Setup Requirements **OPTIONAL**
+Not that helpful, yet, is it? Let's make it more verbose:
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+<%= scope.function_puppet_managed([ {'filename' => __FILE__, verbose' => true }]) %>
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
+This creates a multi-line comment, adding the following informations:
 
-### Beginning with puppet_managed
+* the name of the class where this template is being instanciated
+* the path to the the template file (on the puppetmaster)
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most
-basic use of the module.
 
-## Usage
+### Changing Comment style
 
-This section is where you describe how to customize, configure, and do the
-fancy stuff with your module here. It's especially helpful if you include usage
-examples and code samples for doing things with your module.
+The default comment style is prefixing each line of the comment with a hash sign, which should already be enough for many cases.
 
-## Reference
+Apart from that, one can choose from some preconfigured comment styles,
+by adding the parameter comment_style with one of the values below:
 
-Here, include a complete list of your module's classes, types, providers,
-facts, along with the parameters for each. Users refer to this section (thus
-the name "Reference") to find specific details; most users don't read it per
-se.
+| Name    | Description                                                                              |
+|---------|------------------------------------------------------------------------------------------|
+| c-block | Add a c-style block comment, each line prefixed with a an asterisk, beautifully aligned. |
+| sql     | Prefix each line with two dashes, like in SQL scripts.                                   |
+| percent | Prefix each line with a percent sign.                                                    |
+| vim     | Prefix each line with quotes (") as used in vim configuration files.                     |
+| xml     | HTML/XML-like block comment                                                              |
 
-## Limitations
 
-This is where you list OS compatibility, version compatibility, etc. If there
-are Known Issues, you might want to include them under their own heading here.
+### Using a custom prefix
+
+If the existing styles are not enough (or if you want to save some chars ;) you can also specify a prefix
+
+```puppet
+<%= scope.function_puppet_managed([ {'prefix' => '!!', verbose' => true }]) %>
+```
+
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+I happily accept bug reports and pull requests via github.
 
-## Release Notes/Contributors/Etc. **Optional**
+## Contributors
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel
-are necessary or important to include here. Please use the `## ` header.
+This module is written and being maintained by
+
+    Patrick Schoenfeld <patrick.schoenfeld@credativ.de>.
+
